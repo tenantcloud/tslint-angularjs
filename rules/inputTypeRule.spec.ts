@@ -1,5 +1,6 @@
-import { lintHelper } from '../../tests/test-helper';
-import { RuleName } from '../enums/rule-name.enum';
+import { lintHelper } from '../tests/test-helper';
+
+const ruleName = 'input-type';
 
 describe('input type rule', () => {
 	it("should not fail without @Input('<')", () => {
@@ -11,7 +12,7 @@ describe('input type rule', () => {
 			@Input('@?') public label?: string;
 		`;
 
-		const result = lintHelper({ sourceFile, ruleName: RuleName.inputType });
+		const result = lintHelper({ sourceFile, ruleName });
 		expect(result.errorCount).toBe(0);
 	});
 
@@ -24,7 +25,7 @@ describe('input type rule', () => {
 			@Input('@?') public label?: string;
 		`;
 
-		const result = lintHelper({ sourceFile, ruleName: RuleName.inputType });
+		const result = lintHelper({ sourceFile, ruleName });
 		expect(result.errorCount).toBe(1);
 	});
 
@@ -37,7 +38,7 @@ describe('input type rule', () => {
 			@Input('@?') public label?: string;
 		`;
 
-		const result = lintHelper({ sourceFile, ruleName: RuleName.inputType });
+		const result = lintHelper({ sourceFile, ruleName });
 		expect(result.errorCount).toBe(3);
 	});
 });

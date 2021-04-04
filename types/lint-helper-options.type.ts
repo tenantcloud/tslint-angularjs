@@ -1,4 +1,4 @@
-import { RuleName } from '../enums/rule-name.enum';
+import { RuleName } from './rule-name.type';
 
 export interface LintHelperOptions {
 	sourceFile: string;
