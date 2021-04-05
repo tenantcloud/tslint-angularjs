@@ -1,1 +1,1 @@
-export type RuleName = 'input-type';
+export type RuleName = 'angular-decorators-formatting';

@@ -3,7 +3,7 @@
 	"rulesDirectory": ["build"],
 	"rules": {
 		"typedef": [true, "parameter", "call-signature"],
-		"input-type": true,
+		"angular-decorators-formatting": true,
 		"ordered-imports": [false],
 		"interface-name": false,
 		"no-submodule-imports": false,
