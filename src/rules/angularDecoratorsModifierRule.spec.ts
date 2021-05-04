@@ -3,7 +3,7 @@ import { lintHelper } from '../../tests/test-helper';
 const ruleName = 'angular-decorators-modifier';
 
 describe('angular decorators modifier rule', () => {
-	it('should not fail with public modifier', () => {
+	it('should not fail with public modifier and without readonly', () => {
 		const sourceFile = `
 			class A {
 				@Input('=') public model: number;
@@ -15,7 +15,7 @@ describe('angular decorators modifier rule', () => {
 				@Output() public success: () => void;
 				@Output('&?') public error?: () => void;
 
-				private some: string;
+				private readonly some: string;
 			}
 		`;
 
@@ -66,25 +66,24 @@ describe('angular decorators modifier rule', () => {
 		expect(result.errorCount).toBe(2);
 	});
 
-	it('should fail with protected and private modifier', () => {
+	it('should fail with readonly', () => {
 		const sourceFile = `
 			class A {
-				@Input('=') protected model: number;
+				@Input('=') public model: number;
 				@Input() public max: number;
-				@Input() private min: number;
-				@Input() protected average: number;
-				@Input('@?') private label?: string;
+				@Input() public min: number;
+				@Input() public readonly average: number;
+				@Input('@?') public label?: string;
 
-				@Output() public success: () => void;
+				@Output() public readonly success: () => void;
 				@Output('&?') public error?: () => void;
 
-				private some: string;
+				private readonly some: string;
 			}
 		`;
 
-		const errorsCount = 4;
 		const result = lintHelper({ sourceFile, ruleName });
 
-		expect(result.errorCount).toBe(errorsCount);
+		expect(result.errorCount).toBe(2);
 	});
 });

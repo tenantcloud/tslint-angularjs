@@ -7,9 +7,9 @@ import { isAngularBindingDecorator } from './helpers/is-angular-decorator';
 export class Rule extends Lint.Rules.AbstractRule {
 	public static metadata: Lint.IRuleMetadata = {
 		ruleName: 'angular-decorators-modifier',
-		description: 'Enforces bindings to be always public.',
+		description: 'Enforces bindings to be always public and mutable (without readonly).',
 		rationale: Lint.Utils.dedent`
-            In new Angular all binding is public.
+            In new Angular all binding is public and mutable.
             In other case there are no reason for binding and it will error.
         `,
 		optionsDescription: 'Not configurable.',
@@ -25,17 +25,28 @@ export class Rule extends Lint.Rules.AbstractRule {
 				`,
 				pass: Lint.Utils.dedent`
 					Input() public some: string;
-					Input('<?') public other?: string;
 				`,
 				fail: Lint.Utils.dedent`
 					Input() private some: string;
-					Input('<?') private other?: string;
+				`,
+			},
+			{
+				description: 'Enforces @Input() public some: string instead of @Input() public readonly some: string',
+				config: Lint.Utils.dedent`
+					"rules": { "angular-decorators-modifier": true }
+				`,
+				pass: Lint.Utils.dedent`
+					Input() public some: string;
+				`,
+				fail: Lint.Utils.dedent`
+					Input() public readonly some: string;
 				`,
 			},
 		],
 	};
 
-	public static FAILURE_STRING = `Declaration with angular binding decorator should be public`;
+	public static ACCESS_MODIFIER_FAIL = `Declaration with angular binding decorator should be public`;
+	public static READONLY_FAIL = `Readonly declarations with angular binding decorator are not allowed`;
 
 	public apply(sourceFile: ts.SourceFile): Lint.RuleFailure[] {
 		return this.applyWithWalker(
@@ -66,9 +77,24 @@ class AngularDecoratorsModifierWalker extends Lint.AbstractWalker<null> {
 	private validatePropertyDeclaration(node: ts.PropertyDeclaration): void {
 		const privateKeyword = getModifier(node, ts.SyntaxKind.PrivateKeyword);
 		const protectedKeyword = getModifier(node, ts.SyntaxKind.ProtectedKeyword);
+		const readonlyKeyword = getModifier(node, ts.SyntaxKind.ReadonlyKeyword);
 
-		if (privateKeyword || protectedKeyword) {
-			this.addFailureAtNode(node, Rule.FAILURE_STRING);
+		if (privateKeyword) {
+			const start = privateKeyword.end - 'private'.length;
+
+			this.addFailure(start, privateKeyword.end, Rule.ACCESS_MODIFIER_FAIL);
+		}
+
+		if (protectedKeyword) {
+			const start = protectedKeyword.end - 'protected'.length;
+
+			this.addFailure(start, protectedKeyword.end, Rule.ACCESS_MODIFIER_FAIL);
+		}
+
+		if (readonlyKeyword) {
+			const start = readonlyKeyword.end - 'readonly'.length;
+
+			this.addFailure(start, readonlyKeyword.end, Rule.READONLY_FAIL);
 		}
 	}
 }

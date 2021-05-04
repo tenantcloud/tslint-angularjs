@@ -16,8 +16,8 @@ var Rule = /** @class */ (function (_super) {
     };
     Rule.metadata = {
         ruleName: 'angular-decorators-modifier',
-        description: 'Enforces bindings to be always public.',
-        rationale: Lint.Utils.dedent(templateObject_1 || (templateObject_1 = tslib_1.__makeTemplateObject(["\n            In new Angular all binding is public.\n            In other case there are no reason for binding and it will error.\n        "], ["\n            In new Angular all binding is public.\n            In other case there are no reason for binding and it will error.\n        "]))),
+        description: 'Enforces bindings to be always public and mutable (without readonly).',
+        rationale: Lint.Utils.dedent(templateObject_1 || (templateObject_1 = tslib_1.__makeTemplateObject(["\n            In new Angular all binding is public and mutable.\n            In other case there are no reason for binding and it will error.\n        "], ["\n            In new Angular all binding is public and mutable.\n            In other case there are no reason for binding and it will error.\n        "]))),
         optionsDescription: 'Not configurable.',
         options: null,
         optionExamples: [true],
@@ -27,12 +27,19 @@ var Rule = /** @class */ (function (_super) {
             {
                 description: 'Enforces @Input() public some: string instead of @Input() private some: string',
                 config: Lint.Utils.dedent(templateObject_2 || (templateObject_2 = tslib_1.__makeTemplateObject(["\n\t\t\t\t\t\"rules\": { \"angular-decorators-modifier\": true }\n\t\t\t\t"], ["\n\t\t\t\t\t\"rules\": { \"angular-decorators-modifier\": true }\n\t\t\t\t"]))),
-                pass: Lint.Utils.dedent(templateObject_3 || (templateObject_3 = tslib_1.__makeTemplateObject(["\n\t\t\t\t\tInput() public some: string;\n\t\t\t\t\tInput('<?') public other?: string;\n\t\t\t\t"], ["\n\t\t\t\t\tInput() public some: string;\n\t\t\t\t\tInput('<?') public other?: string;\n\t\t\t\t"]))),
-                fail: Lint.Utils.dedent(templateObject_4 || (templateObject_4 = tslib_1.__makeTemplateObject(["\n\t\t\t\t\tInput() private some: string;\n\t\t\t\t\tInput('<?') private other?: string;\n\t\t\t\t"], ["\n\t\t\t\t\tInput() private some: string;\n\t\t\t\t\tInput('<?') private other?: string;\n\t\t\t\t"]))),
+                pass: Lint.Utils.dedent(templateObject_3 || (templateObject_3 = tslib_1.__makeTemplateObject(["\n\t\t\t\t\tInput() public some: string;\n\t\t\t\t"], ["\n\t\t\t\t\tInput() public some: string;\n\t\t\t\t"]))),
+                fail: Lint.Utils.dedent(templateObject_4 || (templateObject_4 = tslib_1.__makeTemplateObject(["\n\t\t\t\t\tInput() private some: string;\n\t\t\t\t"], ["\n\t\t\t\t\tInput() private some: string;\n\t\t\t\t"]))),
+            },
+            {
+                description: 'Enforces @Input() public some: string instead of @Input() public readonly some: string',
+                config: Lint.Utils.dedent(templateObject_5 || (templateObject_5 = tslib_1.__makeTemplateObject(["\n\t\t\t\t\t\"rules\": { \"angular-decorators-modifier\": true }\n\t\t\t\t"], ["\n\t\t\t\t\t\"rules\": { \"angular-decorators-modifier\": true }\n\t\t\t\t"]))),
+                pass: Lint.Utils.dedent(templateObject_6 || (templateObject_6 = tslib_1.__makeTemplateObject(["\n\t\t\t\t\tInput() public some: string;\n\t\t\t\t"], ["\n\t\t\t\t\tInput() public some: string;\n\t\t\t\t"]))),
+                fail: Lint.Utils.dedent(templateObject_7 || (templateObject_7 = tslib_1.__makeTemplateObject(["\n\t\t\t\t\tInput() public readonly some: string;\n\t\t\t\t"], ["\n\t\t\t\t\tInput() public readonly some: string;\n\t\t\t\t"]))),
             },
         ],
     };
-    Rule.FAILURE_STRING = "Declaration with angular binding decorator should be public";
+    Rule.ACCESS_MODIFIER_FAIL = "Declaration with angular binding decorator should be public";
+    Rule.READONLY_FAIL = "Readonly declarations with angular binding decorator are not allowed";
     return Rule;
 }(Lint.Rules.AbstractRule));
 exports.Rule = Rule;
@@ -55,10 +62,20 @@ var AngularDecoratorsModifierWalker = /** @class */ (function (_super) {
     AngularDecoratorsModifierWalker.prototype.validatePropertyDeclaration = function (node) {
         var privateKeyword = tsutils_1.getModifier(node, ts.SyntaxKind.PrivateKeyword);
         var protectedKeyword = tsutils_1.getModifier(node, ts.SyntaxKind.ProtectedKeyword);
-        if (privateKeyword || protectedKeyword) {
-            this.addFailureAtNode(node, Rule.FAILURE_STRING);
+        var readonlyKeyword = tsutils_1.getModifier(node, ts.SyntaxKind.ReadonlyKeyword);
+        if (privateKeyword) {
+            var start = privateKeyword.end - 'private'.length;
+            this.addFailure(start, privateKeyword.end, Rule.ACCESS_MODIFIER_FAIL);
+        }
+        if (protectedKeyword) {
+            var start = protectedKeyword.end - 'protected'.length;
+            this.addFailure(start, protectedKeyword.end, Rule.ACCESS_MODIFIER_FAIL);
+        }
+        if (readonlyKeyword) {
+            var start = readonlyKeyword.end - 'readonly'.length;
+            this.addFailure(start, readonlyKeyword.end, Rule.READONLY_FAIL);
         }
     };
     return AngularDecoratorsModifierWalker;
 }(Lint.AbstractWalker));
-var templateObject_1, templateObject_2, templateObject_3, templateObject_4;
+var templateObject_1, templateObject_2, templateObject_3, templateObject_4, templateObject_5, templateObject_6, templateObject_7;
