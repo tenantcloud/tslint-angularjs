@@ -2,4 +2,4 @@ export { Rule as AngularDecoratorsFormattingRule } from './angularDecoratorsForm
 export { Rule as AngularDecoratorsModifierRule } from './angularDecoratorsModifierRule';
 export { Rule as AngularDecoratorsOptionalRule } from './angularDecoratorsOptionalRule';
 
-export declare const rulesDirectory = '.';
+export const rulesDirectory = '.';
