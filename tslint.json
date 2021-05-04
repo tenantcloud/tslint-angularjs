@@ -1,5 +1,5 @@
 {
-	"rulesDirectory": ["build"],
+	"rulesDirectory": ["./build"],
 	"rules": {
 		"angular-decorators-modifier": true,
 		"angular-decorators-optional": true,
