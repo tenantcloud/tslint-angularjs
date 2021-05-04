@@ -2,7 +2,7 @@
 	"extends": "../tsconfig.json",
 	"compilerOptions": {
 		"target": "es5",
-		"lib": ["es6"],
+		"lib": ["dom", "es2015", "es6"],
 		"rootDir": "./rules",
 		"outDir": "../build"
 	}

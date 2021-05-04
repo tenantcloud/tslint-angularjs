@@ -1,13 +1,31 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __makeTemplateObject = (this && this.__makeTemplateObject) || function (cooked, raw) {
+    if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
+    return cooked;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Rule = void 0;
-var tslib_1 = require("tslib");
 var Lint = require("tslint");
 var ts = require("typescript");
 var tsutils_1 = require("tsutils");
 var is_angular_decorator_1 = require("./helpers/is-angular-decorator");
-var Rule = /** @class */ (function (_super) {
-    tslib_1.__extends(Rule, _super);
+var Rule = (function (_super) {
+    __extends(Rule, _super);
     function Rule() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
@@ -17,7 +35,7 @@ var Rule = /** @class */ (function (_super) {
     Rule.metadata = {
         ruleName: 'angular-decorators-modifier',
         description: 'Enforces bindings to be always public and mutable (without readonly).',
-        rationale: Lint.Utils.dedent(templateObject_1 || (templateObject_1 = tslib_1.__makeTemplateObject(["\n            In new Angular all binding is public and mutable.\n            In other case there are no reason for binding and it will error.\n        "], ["\n            In new Angular all binding is public and mutable.\n            In other case there are no reason for binding and it will error.\n        "]))),
+        rationale: Lint.Utils.dedent(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n            In new Angular all binding is public and mutable.\n            In other case there are no reason for binding and it will error.\n        "], ["\n            In new Angular all binding is public and mutable.\n            In other case there are no reason for binding and it will error.\n        "]))),
         optionsDescription: 'Not configurable.',
         options: null,
         optionExamples: [true],
@@ -26,15 +44,15 @@ var Rule = /** @class */ (function (_super) {
         codeExamples: [
             {
                 description: 'Enforces @Input() public some: string instead of @Input() private some: string',
-                config: Lint.Utils.dedent(templateObject_2 || (templateObject_2 = tslib_1.__makeTemplateObject(["\n\t\t\t\t\t\"rules\": { \"angular-decorators-modifier\": true }\n\t\t\t\t"], ["\n\t\t\t\t\t\"rules\": { \"angular-decorators-modifier\": true }\n\t\t\t\t"]))),
-                pass: Lint.Utils.dedent(templateObject_3 || (templateObject_3 = tslib_1.__makeTemplateObject(["\n\t\t\t\t\tInput() public some: string;\n\t\t\t\t"], ["\n\t\t\t\t\tInput() public some: string;\n\t\t\t\t"]))),
-                fail: Lint.Utils.dedent(templateObject_4 || (templateObject_4 = tslib_1.__makeTemplateObject(["\n\t\t\t\t\tInput() private some: string;\n\t\t\t\t"], ["\n\t\t\t\t\tInput() private some: string;\n\t\t\t\t"]))),
+                config: Lint.Utils.dedent(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n\t\t\t\t\t\"rules\": { \"angular-decorators-modifier\": true }\n\t\t\t\t"], ["\n\t\t\t\t\t\"rules\": { \"angular-decorators-modifier\": true }\n\t\t\t\t"]))),
+                pass: Lint.Utils.dedent(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n\t\t\t\t\tInput() public some: string;\n\t\t\t\t"], ["\n\t\t\t\t\tInput() public some: string;\n\t\t\t\t"]))),
+                fail: Lint.Utils.dedent(templateObject_4 || (templateObject_4 = __makeTemplateObject(["\n\t\t\t\t\tInput() private some: string;\n\t\t\t\t"], ["\n\t\t\t\t\tInput() private some: string;\n\t\t\t\t"]))),
             },
             {
                 description: 'Enforces @Input() public some: string instead of @Input() public readonly some: string',
-                config: Lint.Utils.dedent(templateObject_5 || (templateObject_5 = tslib_1.__makeTemplateObject(["\n\t\t\t\t\t\"rules\": { \"angular-decorators-modifier\": true }\n\t\t\t\t"], ["\n\t\t\t\t\t\"rules\": { \"angular-decorators-modifier\": true }\n\t\t\t\t"]))),
-                pass: Lint.Utils.dedent(templateObject_6 || (templateObject_6 = tslib_1.__makeTemplateObject(["\n\t\t\t\t\tInput() public some: string;\n\t\t\t\t"], ["\n\t\t\t\t\tInput() public some: string;\n\t\t\t\t"]))),
-                fail: Lint.Utils.dedent(templateObject_7 || (templateObject_7 = tslib_1.__makeTemplateObject(["\n\t\t\t\t\tInput() public readonly some: string;\n\t\t\t\t"], ["\n\t\t\t\t\tInput() public readonly some: string;\n\t\t\t\t"]))),
+                config: Lint.Utils.dedent(templateObject_5 || (templateObject_5 = __makeTemplateObject(["\n\t\t\t\t\t\"rules\": { \"angular-decorators-modifier\": true }\n\t\t\t\t"], ["\n\t\t\t\t\t\"rules\": { \"angular-decorators-modifier\": true }\n\t\t\t\t"]))),
+                pass: Lint.Utils.dedent(templateObject_6 || (templateObject_6 = __makeTemplateObject(["\n\t\t\t\t\tInput() public some: string;\n\t\t\t\t"], ["\n\t\t\t\t\tInput() public some: string;\n\t\t\t\t"]))),
+                fail: Lint.Utils.dedent(templateObject_7 || (templateObject_7 = __makeTemplateObject(["\n\t\t\t\t\tInput() public readonly some: string;\n\t\t\t\t"], ["\n\t\t\t\t\tInput() public readonly some: string;\n\t\t\t\t"]))),
             },
         ],
     };
@@ -43,8 +61,8 @@ var Rule = /** @class */ (function (_super) {
     return Rule;
 }(Lint.Rules.AbstractRule));
 exports.Rule = Rule;
-var AngularDecoratorsModifierWalker = /** @class */ (function (_super) {
-    tslib_1.__extends(AngularDecoratorsModifierWalker, _super);
+var AngularDecoratorsModifierWalker = (function (_super) {
+    __extends(AngularDecoratorsModifierWalker, _super);
     function AngularDecoratorsModifierWalker(sourceFile, ruleName, options) {
         var _this = _super.call(this, sourceFile, ruleName, options) || this;
         _this.checkNode = _this.checkNode.bind(_this);

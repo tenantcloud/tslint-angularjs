@@ -1,15 +1,16 @@
 {
 	"compilerOptions": {
 		"module": "commonjs",
+		"declaration": true,
+		"removeComments": true,
 		"resolveJsonModule": true,
+		"noLib": false,
 		"noImplicitAny": true,
 		"noImplicitReturns": true,
 		"noImplicitThis": true,
 		"noUnusedParameters": true,
 		"noUnusedLocals": true,
 		"strict": true,
-		"importHelpers": true,
-		"declaration": true,
 		"sourceMap": false
 	},
 	"exclude": ["node_modules", "**/*.spec.ts"]
