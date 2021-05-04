@@ -1,5 +1,5 @@
 {
-	"name": "tslint-angularjs",
+	"name": "@tenantcloud/tslint-angularjs",
 	"version": "1.0.0",
 	"description": "Custom rules for angularjs code with angular-ts-decorators",
 	"repository": "https://github.com/tenantcloud/tslint-angularjs",

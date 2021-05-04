@@ -5,7 +5,7 @@ A set of additional TSLint rules used on tenantcloud project in order to help wi
 # Install
 
 ```
-yarn add -D tslint-angularjs
+yarn add -D tenantcloud/tslint-angularjs
 ```
 
 Change your `tslint.json` file to extend the rules:
@@ -13,7 +13,7 @@ Change your `tslint.json` file to extend the rules:
 ```
 "extends": [
     ...
-    "tslint-angularjs"
+    "@tenantcloud/tslint-angularjs"
     ...
 ],
 ```
