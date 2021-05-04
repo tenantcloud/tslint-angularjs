@@ -1,7 +1,7 @@
 import * as Lint from 'tslint';
 import * as ts from 'typescript';
 
-import { isDecorator } from 'tsutils';
+import { isAngularBindingDecorator } from './helpers/is-angular-decorator';
 
 export class Rule extends Lint.Rules.AbstractRule {
 	public static metadata: Lint.IRuleMetadata = {
@@ -55,13 +55,13 @@ export class Rule extends Lint.Rules.AbstractRule {
 	public static INPUT_TO_OUTPUT_OPTIONAL_FAIL = `@Input('&?') should be replaced with @Output('&?')`;
 
 	public apply(sourceFile: ts.SourceFile): Lint.RuleFailure[] {
-		return this.applyWithWalker(new InputTypeWalker(sourceFile, 'angular-decorators-formatting', null));
+		return this.applyWithWalker(
+			new AngularDecoratorFormattingWalker(sourceFile, 'angular-decorators-formatting', null)
+		);
 	}
 }
 
-class InputTypeWalker extends Lint.AbstractWalker<null> {
-	private readonly ANGULAR_BINDING_DECORATORS = ['@Input', '@Output'];
-
+class AngularDecoratorFormattingWalker extends Lint.AbstractWalker<null> {
 	constructor(sourceFile: ts.SourceFile, ruleName: string, options: null) {
 		super(sourceFile, ruleName, options);
 
@@ -73,7 +73,7 @@ class InputTypeWalker extends Lint.AbstractWalker<null> {
 	}
 
 	private checkNode(node: ts.Node): void {
-		if (this.isAngularBindingDecorator(node)) {
+		if (isAngularBindingDecorator(node)) {
 			this.validateBinding(node);
 		}
 
@@ -96,13 +96,5 @@ class InputTypeWalker extends Lint.AbstractWalker<null> {
 		if (node.getText().includes("@Input('&?')")) {
 			this.addFailureAtNode(node, Rule.INPUT_TO_OUTPUT_OPTIONAL_FAIL);
 		}
-	}
-
-	private isAngularBindingDecorator(node: ts.Node): node is ts.Decorator {
-		const isAngularBindingDecorator = this.ANGULAR_BINDING_DECORATORS.some((decorator) =>
-			node.getText().includes(decorator)
-		);
-
-		return isDecorator(node) && isAngularBindingDecorator;
 	}
 }

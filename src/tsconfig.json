@@ -3,6 +3,7 @@
 	"compilerOptions": {
 		"target": "es5",
 		"lib": ["es6"],
+		"rootDir": "./rules",
 		"outDir": "../build"
 	}
 }

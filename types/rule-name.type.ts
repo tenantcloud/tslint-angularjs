@@ -1,1 +1,1 @@
-export type RuleName = 'angular-decorators-formatting';
+export type RuleName = 'angular-decorators-formatting' | 'angular-decorators-optional';

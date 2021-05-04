@@ -1,4 +1,4 @@
-import { lintHelper } from '../tests/test-helper';
+import { lintHelper } from '../../tests/test-helper';
 
 import { Rule } from './angularDecoratorsFormattingRule';
 
