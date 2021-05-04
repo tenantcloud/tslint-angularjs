@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isAngularBindingDecorator = void 0;
 var tsutils_1 = require("tsutils");
 var angular_decorators_1 = require("../constants/angular-decorators");
 function isAngularBindingDecorator(node) {
