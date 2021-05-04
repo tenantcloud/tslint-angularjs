@@ -13,7 +13,7 @@ Change your `tslint.json` file to extend the rules:
 ```
 "extends": [
     ...
-    "@tenantcloud/tslint-angularjs"
+    "tslint-angularjs"
     ...
 ],
 ```
