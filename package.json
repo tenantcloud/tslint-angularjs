@@ -1,6 +1,6 @@
 {
 	"name": "tslint-angularjs",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"description": "Custom rules for angularjs code with angular-ts-decorators",
 	"repository": "https://github.com/tenantcloud/tslint-angularjs",
 	"main": "tslint.json",
