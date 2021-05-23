@@ -1,6 +1,7 @@
 {
 	"rulesDirectory": "./build",
 	"rules": {
+		"angular-injectors-order": true,
 		"angular-decorators-modifier": true,
 		"angular-decorators-optional": true,
 		"angular-decorators-formatting": true
