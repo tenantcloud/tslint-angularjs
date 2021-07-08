@@ -1,7 +1,7 @@
 import * as Lint from 'tslint';
 import * as ts from 'typescript';
 
-import { isAngularBindingDecorator } from './helpers/is-angular-decorator';
+import { isAngularBindingDecorator } from './_is-angular-decorator';
 import { isPropertyDeclaration } from 'tsutils';
 
 export class Rule extends Lint.Rules.AbstractRule {

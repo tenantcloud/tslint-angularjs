@@ -2,7 +2,7 @@ import * as Lint from 'tslint';
 import * as ts from 'typescript';
 import { getModifier, isPropertyDeclaration } from 'tsutils';
 
-import { isAngularBindingDecorator } from './helpers/is-angular-decorator';
+import { isAngularBindingDecorator } from './_is-angular-decorator';
 
 export class Rule extends Lint.Rules.AbstractRule {
 	public static metadata: Lint.IRuleMetadata = {
