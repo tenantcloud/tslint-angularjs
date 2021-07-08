@@ -22,6 +22,42 @@ Change your `tslint.json` file to extend the rules:
 
 # Rules
 
+## `ban-global-lodash`
+
+Enforces to import lodash functions instead of using them through globally _.
+
+Example:
+
+#### `GOOD`
+```ts
+import { isArray } from 'lodash'
+
+function getData(data: number[] | number): number[] {
+	if(isArray(data)) {
+		return data;
+	}
+
+	return [data];
+}
+```
+
+#### `FAIL`
+```ts
+function getData(data: number[] | number): number[] {
+	if(_.isArray(data)) {
+		return data;
+	}
+
+	return [data];
+}
+```
+
+Example usage:
+
+```json
+{ "ban-global-lodash": true }
+```
+
 ## `angular-injectors-order`
 
 Enforces native angularJs injectors to go first.
