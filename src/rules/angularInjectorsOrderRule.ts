@@ -1,8 +1,6 @@
 import * as Lint from 'tslint';
 import * as ts from 'typescript';
 
-import { isConstructorDeclaration } from 'tsutils';
-
 export class Rule extends Lint.Rules.AbstractRule {
 	public static metadata: Lint.IRuleMetadata = {
 		ruleName: 'angular-injectors-order',
@@ -53,14 +51,14 @@ class AngularInjectorsOrderWalker extends Lint.AbstractWalker<null> {
 	}
 
 	private checkNode(node: ts.Node): void {
-		if (isConstructorDeclaration(node) && this.isConstructorContains$Injectors(node.parameters)) {
-			this.validateConstructorParameters(node.parameters);
+		if (ts.isFunctionLike(node) && this.isParametersContains$Injectors(node.parameters)) {
+			this.validateParameters(node.parameters);
 		}
 
 		ts.forEachChild(node, this.checkNode);
 	}
 
-	private validateConstructorParameters(parameters: ts.NodeArray<ts.ParameterDeclaration>): void {
+	private validateParameters(parameters: ts.NodeArray<ts.ParameterDeclaration>): void {
 		const schema: number[] = parameters.map((parameter: ts.ParameterDeclaration) =>
 			this.is$Injector(parameter)
 				? AngularInjectorsOrderWalker.$INJECTOR
@@ -88,7 +86,7 @@ class AngularInjectorsOrderWalker extends Lint.AbstractWalker<null> {
 		});
 	}
 
-	private isConstructorContains$Injectors(parameters: ts.NodeArray<ts.ParameterDeclaration>): boolean {
+	private isParametersContains$Injectors(parameters: ts.NodeArray<ts.ParameterDeclaration>): boolean {
 		return parameters.some(this.is$Injector);
 	}
 
