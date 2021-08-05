@@ -30,7 +30,7 @@ Example:
 
 #### `GOOD`
 ```ts
-import { isArray } from 'lodash'
+import { isArray } from 'lodash-es'
 
 function getData(data: number[] | number): number[] {
 	if(isArray(data)) {

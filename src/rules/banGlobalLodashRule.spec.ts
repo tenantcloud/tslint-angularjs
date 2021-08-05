@@ -17,7 +17,7 @@ describe('ban global lodash rule', () => {
 
 	it('should pass with right import of lodash function', () => {
 		const sourceFile = `
-			import { isArray } from 'lodash'
+			import { isArray } from 'lodash-es'
 
 			function getData(data: number[] | number): number[] {
 				if(isArray(data)) {
@@ -35,7 +35,7 @@ describe('ban global lodash rule', () => {
 
 	it('should pass with right import of multiple lodash functions', () => {
 		const sourceFile = `
-			import { isArray, toNumber } from 'lodash'
+			import { isArray, toNumber } from 'lodash-es'
 
 			function getData(data: number[] | number | string): number[] {
 				if(isArray(data)) {
@@ -68,7 +68,7 @@ describe('ban global lodash rule', () => {
 
 		const result = lintHelper({ sourceFile, ruleName });
 
-		expect(result.failures[0].getFailure()).toBe(`"isArray" should be imported from 'lodash'`);
+		expect(result.failures[0].getFailure()).toBe(`"isArray" should be imported from 'lodash-es'`);
 	});
 
 	it('should fail with global multiple _.', () => {
@@ -88,8 +88,8 @@ describe('ban global lodash rule', () => {
 
 		const result = lintHelper({ sourceFile, ruleName });
 
-		expect(result.failures[0].getFailure()).toBe(`"isArray" should be imported from 'lodash'`);
-		expect(result.failures[1].getFailure()).toBe(`"toNumber" should be imported from 'lodash'`);
+		expect(result.failures[0].getFailure()).toBe(`"isArray" should be imported from 'lodash-es'`);
+		expect(result.failures[1].getFailure()).toBe(`"toNumber" should be imported from 'lodash-es'`);
 	});
 
 	it('should fail with global multiple chained _.', () => {
@@ -101,13 +101,13 @@ describe('ban global lodash rule', () => {
 
 		const result = lintHelper({ sourceFile, ruleName });
 
-		expect(result.failures[0].getFailure()).toBe(`"toNumber" should be imported from 'lodash'`);
-		expect(result.failures[1].getFailure()).toBe(`"toString" should be imported from 'lodash'`);
+		expect(result.failures[0].getFailure()).toBe(`"toNumber" should be imported from 'lodash-es'`);
+		expect(result.failures[1].getFailure()).toBe(`"toString" should be imported from 'lodash-es'`);
 	});
 
 	it('should fail with global _. and import', () => {
 		const sourceFile = `
-			import { isArray } from 'lodash'
+			import { isArray } from 'lodash-es'
 
 			function getData(data: number[] | number | string): number[] {
 				if (isArray(data)) {
@@ -124,6 +124,6 @@ describe('ban global lodash rule', () => {
 
 		const result = lintHelper({ sourceFile, ruleName });
 
-		expect(result.failures[0].getFailure()).toBe(`"toNumber" should be imported from 'lodash'`);
+		expect(result.failures[0].getFailure()).toBe(`"toNumber" should be imported from 'lodash-es'`);
 	});
 });

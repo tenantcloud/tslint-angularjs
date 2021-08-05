@@ -82,19 +82,19 @@ class AngularDecoratorFormattingWalker extends Lint.AbstractWalker<null> {
 
 	private validateBinding(node: ts.Decorator): void {
 		if (node.getText().includes("@Input('<')")) {
-			this.addFailureAtNode(node, Rule.INPUT_CLEAR_FAIL);
+			return this.addFailureAtNode(node, Rule.INPUT_CLEAR_FAIL);
 		}
 
 		if (node.getText().includes("@Output('&')")) {
-			this.addFailureAtNode(node, Rule.OUTPUT_CLEAR_FAIL);
+			return this.addFailureAtNode(node, Rule.OUTPUT_CLEAR_FAIL);
 		}
 
 		if (node.getText().includes("@Input('&')")) {
-			this.addFailureAtNode(node, Rule.INPUT_TO_OUTPUT_FAIL);
+			return this.addFailureAtNode(node, Rule.INPUT_TO_OUTPUT_FAIL);
 		}
 
 		if (node.getText().includes("@Input('&?')")) {
-			this.addFailureAtNode(node, Rule.INPUT_TO_OUTPUT_OPTIONAL_FAIL);
+			return this.addFailureAtNode(node, Rule.INPUT_TO_OUTPUT_OPTIONAL_FAIL);
 		}
 	}
 }

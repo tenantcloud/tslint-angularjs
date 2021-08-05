@@ -17,12 +17,12 @@ export class Rule extends Lint.Rules.AbstractRule {
 		typescriptOnly: false,
 		codeExamples: [
 			{
-				description: `Enforces to import { isArray } from 'lodash'`,
+				description: `Enforces to import { isArray } from 'lodash-es'`,
 				config: Lint.Utils.dedent`
 					"rules": { "ban-global-lodash": true }
 				`,
 				pass: Lint.Utils.dedent`
-					import { isArray } from 'lodash'
+					import { isArray } from 'lodash-es'
 
 					function getData(data: number[] | number): number[] {
 						if(isArray(data)) {
@@ -46,7 +46,7 @@ export class Rule extends Lint.Rules.AbstractRule {
 	};
 
 	public static FAILURE_STRING = (lodashFunctionName: string): string =>
-		`"${lodashFunctionName}" should be imported from 'lodash'`;
+		`"${lodashFunctionName}" should be imported from 'lodash-es'`;
 
 	public apply(sourceFile: ts.SourceFile): Lint.RuleFailure[] {
 		return this.applyWithWalker(new BanGlobalLodashWalker(sourceFile, 'ban-global-lodash', null));
