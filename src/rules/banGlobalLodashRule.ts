@@ -22,7 +22,7 @@ export class Rule extends Lint.Rules.AbstractRule {
 					"rules": { "ban-global-lodash": true }
 				`,
 				pass: Lint.Utils.dedent`
-					import { isArray } from 'lodash-es'
+					import { isArray } from 'lodash-es';
 
 					function getData(data: number[] | number): number[] {
 						if(isArray(data)) {
@@ -73,10 +73,14 @@ class BanGlobalLodashWalker extends Lint.AbstractWalker<null> {
 	}
 
 	private validate(node: ts.PropertyAccessExpression): void {
-		if (node.getText().includes('_.')) {
-			const lodashFunctionName = node.getText().replace('_.', '');
+		const lodashFunctionNameMatches = node.getText().match(/_\.(\w)*$/g);
 
-			this.addFailureAtNode(node, Rule.FAILURE_STRING(lodashFunctionName));
+		if (lodashFunctionNameMatches) {
+			const lodashFunctionNames = lodashFunctionNameMatches.map(name => name.replace('_.', ''));
+
+			lodashFunctionNames.forEach(lodashFunctionName => {
+				this.addFailureAtNode(node, Rule.FAILURE_STRING(lodashFunctionName));
+			});
 		}
 	}
 }
