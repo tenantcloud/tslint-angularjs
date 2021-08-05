@@ -1,6 +1,8 @@
 {
-	"rulesDirectory": "./build",
+	"rulesDirectory": "./lib",
 	"rules": {
+		"ban-global-lodash": true,
+		"angular-injectors-order": true,
 		"angular-decorators-modifier": true,
 		"angular-decorators-optional": true,
 		"angular-decorators-formatting": true
