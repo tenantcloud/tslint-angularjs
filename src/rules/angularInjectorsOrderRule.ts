@@ -37,8 +37,8 @@ export class Rule extends Lint.Rules.AbstractRule {
 }
 
 class AngularInjectorsOrderWalker extends Lint.AbstractWalker<null> {
-	public static readonly $INJECTOR = 1;
-	public static readonly CUSTOM_INJECTOR = 0;
+	public static readonly $INJECTOR = 0;
+	public static readonly CUSTOM_INJECTOR = 1;
 
 	constructor(sourceFile: ts.SourceFile, ruleName: string, options: null) {
 		super(sourceFile, ruleName, options);

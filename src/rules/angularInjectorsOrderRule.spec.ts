@@ -40,7 +40,19 @@ describe('angular injectors order rule', () => {
 			expect(result.errorCount).toBe(0);
 		});
 
-		it('should fail because injector with $ gos after injectors without $', () => {
+		it('should fail because injector with $ goes after injectors without $ (2 injectors)', () => {
+			const sourceFile = `
+			class A {
+				constructor(public CorePagingFilterService: CorePagingFilterService, private $filter: FilterService) {}
+			}
+		`;
+
+			const result = lintHelper({ sourceFile, ruleName });
+
+			expect(result.errorCount).toBe(1);
+		});
+
+		it('should fail because injector with $ goes after injectors without $ (4 injectors)', () => {
 			const sourceFile = `
 			class A {
 				constructor(private HttpService: HttpService, $async, private $httpService, someOther) {}
