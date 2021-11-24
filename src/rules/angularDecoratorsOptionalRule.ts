@@ -70,10 +70,8 @@ class AngularDecoratorsOptionalWalker extends Lint.AbstractWalker<null> {
 	}
 
 	private checkNode(node: ts.Node): void {
-		if (isAngularBindingDecorator(node)) {
-			if (isPropertyDeclaration(node.parent)) {
-				this.validatePropertyDeclaration(node.parent, node);
-			}
+		if (isAngularBindingDecorator(node) && isPropertyDeclaration(node.parent)) {
+			this.validatePropertyDeclaration(node.parent, node);
 		}
 
 		ts.forEachChild(node, this.checkNode);

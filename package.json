@@ -1,10 +1,11 @@
 {
 	"name": "tslint-angularjs",
-	"version": "1.1.4",
+	"version": "2.0.0",
 	"description": "Custom rules for angularjs code with angular-ts-decorators",
 	"repository": "https://github.com/tenantcloud/tslint-angularjs",
 	"main": "tslint.json",
 	"scripts": {
+		"start": "rm -rf lib && tsc -w --project src",
 		"build": "rm -rf lib && tsc --project src",
 		"watch": "rm -rf lib && tsc -w --project src",
 		"test": "npm run build && jest"
@@ -18,15 +19,15 @@
 	"license": "ISC",
 	"dependencies": {
 		"tslint": "^5.16.0",
-		"tsutils": "^3.0.0",
-		"typescript": "^3.4.5"
+		"tsutils": "^3.21.0",
+		"typescript": ">=4.0.0"
 	},
 	"devDependencies": {
-		"@types/jest": "^22.2.3",
-		"@types/node": "^12.7.9",
-		"jest": "^25.5.4",
-		"prettier": "^1.19.1",
-		"ts-jest": "^25.5.1",
+		"@types/jest": "^27.0.3",
+		"@types/node": "^16.11.10",
+		"jest": "^27.3.1",
+		"prettier": "^2.4.1",
+		"ts-jest": "^27.0.7",
 		"tslint-config-prettier": "^1.18.0"
 	}
 }
